@@ -77,6 +77,7 @@ int main() {
         switch (opcion) {
             case 1:
                 cout<<"Nro de peliculas por registrar : ";
+                cout<<"<3";
                 cin>> nro_peliculas_registradas;
 
                 for(int j=0; j< nro_peliculas_registradas; j++) {
