@@ -1,9 +1,14 @@
 #include <iostream>
 #include <vector>
 #include "clases/Pelicula.h"
+#include "clases/EmpresaX.h"
+#include "utils/funciones.h"
 #include "clases/Usuario.h"
 #include "utils/menu.h"
 using namespace std;
+
+
+
 
 Usuario registrarUsuario(){
     string dni;
@@ -63,61 +68,109 @@ Pelicula registrarPelicula(){
     return pelicula;
 }
 
+
+
+
+
+
+
 int main() {
-
-    vector<int>listaids;
-    vector<int>listausuarios;
-    Usuario* usuario= new Usuario();
+    EmpresaX *empresa1 = registrar_empresa();
+    vector<int> listaids;
+    vector<int> listausuarios;
+    int opcionsubmenu;
+    cout << endl;
+    Usuario *usuario = new Usuario();
     int nro_peliculas_registradas;
-
     int opcion;
     int index;
-    do{
+    do {
         opcion = menu();
         switch (opcion) {
             case 1:
-                cout<<"Nro de peliculas por registrar : ";
-                cout<<"<3";
-                cin>> nro_peliculas_registradas;
+                if (empresa1->getCantidadUsuarioEmpresa() != 0) {
+                    cout << "Nro de peliculas por registrar : ";
+                    cin >> nro_peliculas_registradas;
 
-                for(int j=0; j< nro_peliculas_registradas; j++) {
-                    Pelicula *p = new Pelicula(registrarPelicula());
-                    cout << endl;
-                    cout << "Imprimiendo pelicula registrada : " << endl;
-                    cout << "Nombre de pelicula : "<<p->getNombre_pelicula() << endl;
-                    cout << "Ejemplares disponibles : "<<p->getEjemplares_disponibles() << endl;
-                    cout << "Anio de publicacion : "<<p->getAnio_publicacion() << endl;
-                    cout << "Ranking : "<<p->getRanking() << endl;
+                    for (int j = 0; j < nro_peliculas_registradas; j++) {
+                        Pelicula *p = new Pelicula(registrarPelicula());
+                        cout << endl;
+                        cout << "Imprimiendo pelicula registrada : " << endl;
+                        cout << "Nombre de pelicula : " << p->getNombre_pelicula() << endl;
+                        cout << "Ejemplares disponibles : " << p->getEjemplares_disponibles() << endl;
+                        cout << "Anio de publicacion : " << p->getAnio_publicacion() << endl;
+                        cout << "Ranking : " << p->getRanking() << endl;
+                        usuario->registrarPelicula(*p);
+                    }
+                } else {
+                    cout << "Por favor, registrar un usuario " << endl;
+                }
+                break;
 
-                    usuario->registrarPelicula(*p);
+            case 2:
+                Usuario usuarioRegistrado = registrarUsuario();
+                empresa1->registrarUsuario_Empresa(usuarioRegistrado);
+                cout << "Imprimiendo usuario registrado : " << endl;
+                empresa1->getListadoUsuario_Empresa();
+                break;
+
+            case 3:
+                cout << "1. Por nombre" << endl;
+                cout << "2. Por anio de publicacion" << endl;
+                cout << "3. Por ranking" << endl;
+                cin >> opcionsubmenu;
+
+                switch (opcionsubmenu) {
+                    case 1:
+                        void BuscarNombre(EmpresaX const &x) {
+                            string nombre;
+                            cout << "Ingrese nombre a buscar: ";
+                            getline(cin, nombre);
+
+                            for (int i = 0; i < x.listado_peliculas.size(); i++) {
+                                Pelicula pelicula = x.listado_peliculas[i];
+                                if (pelicula.getNombre() == nombre) {
+                                    pelicula.mostrarDatos();
+                                }
+                            }
+                        }
+                        break;
+                    case 2:
+                        void BuscarAnio(EmpresaX const &x) {
+                            string anio;
+                            cout << "Ingrese anio de publicacion a buscar: ";
+                            cin >> anio;
+
+                            for (int i = 0; i < x.listado_peliculas.size(); i++) {
+                                Pelicula pelicula = x.listado_peliculas[i];
+                                if (pelicula.getAnio_publicacion() == anio) {
+                                    pelicula.mostrarDatos();
+                                }
+                            }
+                        }
+                        break;
+
+                        //case 3:
+
+
+                        //index = buscarPelicula(versiones);
+                        //if (index != -1)
+                        //   cout << versiones.at(index)<<" "<< anios.at(index)<<endl;
+                        //(versiones, anios);
+                        //break;
+
+                        //case 4:
+                        //alquilarPelicula();
+                        // case 5:
+                        //devolverPelicula();
+                        // case 6:
+                        // reportePelicula();
+
+
                 }
 
-                usuario->getListadoPelicula();
-                break;
-                case 2:
-                    Usuario usuarioRegistrado= registrarUsuario();
-                    usuario->registrarUsuario(usuarioRegistrado);
-
-                cout << "Imprimiendo usuario registrado : " << endl;
-                usuario->getListadoUsuario();
-                break;
-                //case 3:
-                //index = buscarPelicula(versiones);
-                //if (index != -1)
-                //   cout << versiones.at(index)<<" "<< anios.at(index)<<endl;
-                //(versiones, anios);
-                //break;
-                //case 4:
-                //alquilarPelicula();
-                // case 5:
-                //devolverPelicula();
-                // case 6:
-                // reportePelicula();
-
         }
-    }while(opcion != 3); //7
-
-
-    return 0;
-
+        while (opcion != 4); //7
+        return 0;
+    }
 }

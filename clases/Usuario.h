@@ -8,7 +8,6 @@
 using namespace std;
 
 class Usuario{
-
     //declaracion de atributos
 private:
     string dni;
@@ -16,7 +15,6 @@ private:
     string apellido_usuario;
     int peliculas_alquiladas = 0;
 
-    vector<Usuario> listado_usuarios;
     vector<Pelicula> listado_peliculas;
 
 public:
@@ -39,17 +37,8 @@ public:
         return apellido_usuario;
     }
 
-    void registrarUsuario(Usuario u1){
-        listado_usuarios.push_back(u1);
-    }
 
-    void getListadoUsuario(){
-        for(int i=0; i<listado_usuarios.size();i++){
-            cout<<listado_usuarios.at(i).getDNI()<<endl;
-            cout<<listado_usuarios.at(i).getNombre()<<endl;
-            cout<<listado_usuarios.at(i).getApellido()<<endl;
-        }
-    }
+
 
     void registrarPelicula(Pelicula p1){
         listado_peliculas.push_back(p1);
