@@ -15,7 +15,7 @@ private:
     string apellido_usuario;
     int peliculas_alquiladas = 0;
 
-    vector<Pelicula> listado_peliculas;
+    vector<Pelicula>listado_peliculas;
 
 public:
     //sobrecarga de constructores
@@ -38,19 +38,25 @@ public:
     }
 
 
-
+    int getCantidadListaPeliculas(){
+        return listado_peliculas.size();
+    }
 
     void registrarPelicula(Pelicula p1){
         listado_peliculas.push_back(p1);
     }
 
-    void getListadoPelicula(){
+    void imprimirListadoPelicula(){
         for(int i=0; i<listado_peliculas.size();i++){
             cout<< listado_peliculas.at(i).getNombre_pelicula()<<endl;
             cout<< listado_peliculas.at(i).getRanking()<<endl;
             cout<< listado_peliculas.at(i).getAnio_publicacion()<<endl;
             cout<< listado_peliculas.at(i).getEjemplares_disponibles()<<endl;
         }
+    }
+
+    vector<Pelicula>getListadoPelicula(){
+        return listado_peliculas;
     }
 };
 

@@ -11,6 +11,7 @@ private:
     string direccion;
     string RUC;
     vector <Usuario>listado_usuarios;
+    vector <Pelicula>lista_todas_peliculas_empresa;
 public:
     EmpresaX(){};
     EmpresaX(string nombre, string direccion, string RUC){
@@ -31,8 +32,25 @@ public:
         }
     }
 
+    vector<Pelicula>getListadoTodasPeliculasEmpresa(){
+        for(int i=0; i<listado_usuarios.size();i++){
+            for(int j=0; i<listado_usuarios.at(i).getListadoPelicula().size();j++){
+                lista_todas_peliculas_empresa.push_back(listado_usuarios.at(i).getListadoPelicula().at(i));
+            }
+        }
+        return lista_todas_peliculas_empresa;
+    }
+
+
     int getCantidadUsuarioEmpresa(){
         return listado_usuarios.size();
+    }
+
+    void imprimirListaTodasPeliculasEmpresa(){
+        cout<<"Lista de peliculas"<<endl;
+        for(int i; i<lista_todas_peliculas_empresa.size(); i++){
+            cout<<lista_todas_peliculas_empresa.at(i).getNombre_pelicula();
+        }
     }
 };
 

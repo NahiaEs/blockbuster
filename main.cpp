@@ -25,8 +25,7 @@ Usuario registrarUsuario(){
     cin.ignore();
     getline(cin, apellido_usuario);
 
-    Usuario* usuario = new Usuario(dni, nombre_usuario, apellido_usuario);
-    return *usuario;
+    return Usuario(dni, nombre_usuario, apellido_usuario);
 }
 
 
@@ -80,7 +79,7 @@ int main() {
     vector<int> listausuarios;
     int opcionsubmenu;
     cout << endl;
-    Usuario *usuario = new Usuario();
+    Usuario usuario;
     int nro_peliculas_registradas;
     int opcion;
     int index;
@@ -100,7 +99,8 @@ int main() {
                         cout << "Ejemplares disponibles : " << p->getEjemplares_disponibles() << endl;
                         cout << "Anio de publicacion : " << p->getAnio_publicacion() << endl;
                         cout << "Ranking : " << p->getRanking() << endl;
-                        usuario->registrarPelicula(*p);
+                        usuario.registrarPelicula(*p);
+                        empresa1->registrarUsuario_Empresa(usuario);
                     }
                 } else {
                     cout << "Por favor, registrar un usuario " << endl;
@@ -108,8 +108,8 @@ int main() {
                 break;
 
             case 2:
-                Usuario usuarioRegistrado = registrarUsuario();
-                empresa1->registrarUsuario_Empresa(usuarioRegistrado);
+                usuario = registrarUsuario();
+                empresa1->registrarUsuario_Empresa(usuario);
                 cout << "Imprimiendo usuario registrado : " << endl;
                 empresa1->getListadoUsuario_Empresa();
                 break;
@@ -118,36 +118,15 @@ int main() {
                 cout << "1. Por nombre" << endl;
                 cout << "2. Por anio de publicacion" << endl;
                 cout << "3. Por ranking" << endl;
+                cout<< "Ingrese una opcion : ";
                 cin >> opcionsubmenu;
 
                 switch (opcionsubmenu) {
                     case 1:
-                        void BuscarNombre(EmpresaX const &x) {
-                            string nombre;
-                            cout << "Ingrese nombre a buscar: ";
-                            getline(cin, nombre);
-
-                            for (int i = 0; i < x.listado_peliculas.size(); i++) {
-                                Pelicula pelicula = x.listado_peliculas[i];
-                                if (pelicula.getNombre() == nombre) {
-                                    pelicula.mostrarDatos();
-                                }
-                            }
-                        }
+                        BuscarNombre(*empresa1);
                         break;
                     case 2:
-                        void BuscarAnio(EmpresaX const &x) {
-                            string anio;
-                            cout << "Ingrese anio de publicacion a buscar: ";
-                            cin >> anio;
 
-                            for (int i = 0; i < x.listado_peliculas.size(); i++) {
-                                Pelicula pelicula = x.listado_peliculas[i];
-                                if (pelicula.getAnio_publicacion() == anio) {
-                                    pelicula.mostrarDatos();
-                                }
-                            }
-                        }
                         break;
 
                         //case 3:
@@ -170,7 +149,7 @@ int main() {
                 }
 
         }
-        while (opcion != 4); //7
-        return 0;
-    }
+
+    } while (opcion != 4); //7
+    return 0;
 }

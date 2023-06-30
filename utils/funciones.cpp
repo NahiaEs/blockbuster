@@ -1,73 +1,60 @@
 #include "funciones.h"
+#include "../clases/Usuario.h"
 
 // MENU ------------------------------
-
-// REGISTRAR PELICULA ------------------------
-Pelicula RegistrarPelicula(){
-    string nombre_pelicula;
-    string anio_publicacion;
-    int ejemplares_disponibles;
-    int ranking;
-    int opcion;
-
-    cout<<"-----REGISTRAR PELICULA-----"<<endl;
-    cout<<"Nombre pelicula : ";
-    cin.ignore();
-    getline(cin, nombre_pelicula);
-
-    cout<<"Anio : ";
-    cin >> anio_publicacion;
-
-    cout<<"Ejemplares : ";
-    cin >> ejemplares_disponibles;
-
-    do{
-        cout<<"Agregar ranking 1- Si   2- No : ";
-        cin >> opcion;
-    }while(opcion<1 or opcion>2);
-
-    if(opcion==1){
-        do{
-            cout << "Ranking : ";
-            cin>>ranking;
-        }while(ranking<0 || ranking >5);
-
-        //hacer validacion
-        Pelicula pelicula(nombre_pelicula, anio_publicacion, ejemplares_disponibles, ranking);
-        return pelicula;
-
-    }
-    Pelicula pelicula(nombre_pelicula, anio_publicacion, ejemplares_disponibles);
-    return pelicula;
-}
-
-
-// REGISTRAR USUARIO ---------------------------------
-Usuario RegistrarUsuario(){
-    string dni;
-    string nombre_usuario;
-    string apellido_usuario;
-
-    cout<<"-----REGISTRAR USUARIO-----"<<endl;
-    cout<<"DNI: ";
-    cin>>dni;
-    cout<<"Nombre: ";
-    cin.ignore();
-    getline(cin, nombre_usuario);
-    cout<<"Apellido : ";
-    cin.ignore();
-    getline(cin, apellido_usuario);
-
-    Usuario* usuario = new Usuario(dni, nombre_usuario, apellido_usuario);
-    return *usuario;
-}
 
 
 // BUSCAR PELICULA
 
+/*
+void BuscarAnio(EmpresaX const &x) {
+    string anio;
+    cout << "Ingrese anio de publicacion a buscar: ";
+    cin >> anio;
 
+    for (int i = 0; i < x.listado_peliculas.size(); i++) {
+        Pelicula pelicula = x.listado_peliculas[i];
+        if (pelicula.getAnio_publicacion() == anio) {
+            pelicula.mostrarDatos();
+        }
+    }
+}
 
+void BuscarRanking(EmpresaX const &x) {
 
+    int ranking, menor_igual;
+
+    cout << "Ingrese ranking a buscar: ";
+    cin >> ranking;
+    cout << "(1) Mayor igual\n(2) Menor igual" << endl;
+    cout << "Elija una opcion (1/2): ";
+    cin >> menor_igual;
+
+    switch (menor_igual) {
+        case 1:
+            for (int i = 0; i < x.listado_peliculas.size(); i++) {
+                Pelicula pelicula = x.listado_peliculas[i];
+                if (pelicula.getRanking() >= ranking) {
+                    pelicula.mostrarDatos();
+                }
+            }
+            break;
+
+        case 2:
+            for (int i = 0; i < x.listado_peliculas.size(); i++) {
+                Pelicula pelicula = x.listado_peliculas[i];
+                if (pelicula.getRanking() >= ranking) {
+                    pelicula.mostrarDatos();
+                }
+            }
+            break;
+
+        default:
+            cout << "Opcion no valida. Regresando al menu." << endl;
+            break;
+    }
+
+}
 
 
 void BuscarPelicula(EmpresaX const &x) {
@@ -217,3 +204,4 @@ void DevolverPelicula(EmpresaX &x) {
 
 
 // REPORTE PELICULA ES MOSTRAR DATOS:
+*/

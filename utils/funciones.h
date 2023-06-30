@@ -51,10 +51,25 @@ EmpresaX* registrar_empresa(){
 
 Pelicula registrarPelicula();
 Usuario registrarUsuario();
-void BuscarNombre(EmpresaX const &x);
+void BuscarNombre(EmpresaX x){
+    string nombre;
+    cout << "Ingrese nombre a buscar: ";
+    cin.ignore();
+    getline(cin, nombre);
+
+    x.imprimirListaTodasPeliculasEmpresa();
+    for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++) {
+        if(x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula()== nombre){
+            cout<<"La pelicula "<<nombre<<" se encuentra disponible"<<endl;
+        }
+    }
+}
+
+/*
 void BuscarAnio(EmpresaX const &x);
 void BuscarRanking(EmpresaX const &x);
 void BuscarPelicula(EmpresaX const &x);
 void AlquilarPelicula(EmpresaX &x);
 void DevolverPelicula(EmpresaX &x);
+*/
 #endif

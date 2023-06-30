@@ -70,39 +70,6 @@ void BuscarAnio(EmpresaX const &x) {
 break;
 
 case 3:
-void BuscarRanking(EmpresaX const &x) {
-
-    int ranking, menor_igual;
-
-    cout << "Ingrese ranking a buscar: ";
-    cin >> ranking;
-    cout << "(1) Mayor igual\n(2) Menor igual" << endl;
-    cout << "Elija una opcion (1/2): ";
-    cin >> menor_igual;
-
-    switch (menor_igual) {
-        case 1:
-            for (int i = 0; i < x.listado_peliculas.size(); i++) {
-                Pelicula pelicula = x.listado_peliculas[i];
-                if (pelicula.getRanking() >= ranking) {
-                    pelicula.mostrarDatos();
-                }
-            }
-            break;
-
-        case 2:
-            for (int i = 0; i < x.listado_peliculas.size(); i++) {
-                Pelicula pelicula = x.listado_peliculas[i];
-                if (pelicula.getRanking() >= ranking) {
-                    pelicula.mostrarDatos();
-                }
-            }
-            break;
-
-        default:
-            cout << "Opcion no valida. Regresando al menu." << endl;
-            break;
-    }
 
 }
 break;
