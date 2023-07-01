@@ -96,6 +96,7 @@ int main()
                 for (int j = 0; j < nro_peliculas_registradas; j++)
                 {
                     Pelicula *p = new Pelicula(RegistrarPelicula(&empresa1));
+                    p->generarID(empresa1.);
                     cout << endl;
                     cout << "Imprimiendo pelicula registrada : " << endl;
                     cout << "Nombre de pelicula : " << p->getNombre_pelicula() << endl;

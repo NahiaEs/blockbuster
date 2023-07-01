@@ -13,6 +13,7 @@ private:
     string RUC;
     vector <Usuario>listado_usuarios;
     vector <Pelicula>lista_todas_peliculas_empresa;
+    vector <int> ids_generados;
     // Ganancias por películas YA DEVUELTAS
     double ganancia_peliculas_devueltas=0;
     double ganancias_totales =0;
@@ -55,6 +56,10 @@ public:
         return lista_todas_peliculas_empresa;
     }
 
+    vector <int> getIdsGenerados() {
+        return ids_generados;
+    }
+
 
     int getCantidadUsuarioEmpresa(){
         return listado_usuarios.size();
@@ -63,7 +68,11 @@ public:
     void imprimirListaTodasPeliculasEmpresa(){
         cout<<"Lista de peliculas"<<endl;
         for(int i=0; i<lista_todas_peliculas_empresa.size(); i++){
-            cout<<lista_todas_peliculas_empresa.at(i).getNombre_pelicula();
+            cout<<"ID : "<<lista_todas_peliculas_empresa.at(i).getId()<<endl;
+            cout<<"Nombre pelicula : "<<lista_todas_peliculas_empresa.at(i).getNombre_pelicula()<<endl;
+            cout<<"Anio pelicula : "<<lista_todas_peliculas_empresa.at(i).getAnio_publicacion()<<endl;
+            cout<<"Ejemplares disponibles : "<<lista_todas_peliculas_empresa.at(i).getEjemplares_disponibles()<<endl;
+            cout<<endl;
         }
     }
 

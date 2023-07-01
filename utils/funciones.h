@@ -154,6 +154,8 @@ void AlquilarPelicula(EmpresaX *x)
         registrarUsuario();
     }
 
+    x->imprimirListaTodasPeliculasEmpresa();
+
     cout << "Ingrese el nombre de la película a alquilar: ";
     cin.ignore();
     getline(cin, nombre_pelicula);
