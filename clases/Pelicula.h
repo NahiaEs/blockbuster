@@ -20,7 +20,7 @@ public:
     //sobrecarga de constructores
 
     // Constructor vacio
-    //Pelicula();
+    Pelicula();
 
     //Cuando el usuario no coloca el ranking, por defecto ranking=5
     Pelicula(string nombre_pelicula, string anio_publicacion, int ejemplares_disponibles){
@@ -82,6 +82,7 @@ public:
     void setRanking(int _ranking) {
         this -> ranking = _ranking;
     }
+
 
 
 };

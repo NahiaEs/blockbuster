@@ -1,7 +1,3 @@
-//
-// Created by Giancarlos on 29/06/23.
-//
-
 #ifndef BLOCKBUSTER_MENU_H
 #define BLOCKBUSTER_MENU_H
 

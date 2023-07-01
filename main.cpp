@@ -1,14 +1,14 @@
 #include <iostream>
 #include <vector>
+
 #include "clases/Pelicula.h"
 #include "clases/EmpresaX.h"
-#include "utils/funciones.h"
 #include "clases/Usuario.h"
+
+#include "utils/funciones.h"
 #include "utils/menu.h"
+
 using namespace std;
-
-
-
 
 Usuario registrarUsuario(){
     string dni;
@@ -139,10 +139,10 @@ int main() {
                 break;
 
             case 4:
-                AlquilarPelicula(*empresa1);
+                AlquilarPelicula(empresa1);
                 break;
             case 5:
-                DevolverPelicula(*empresa1);
+                //DevolverPelicula(*empresa1);
                 break;
                 // case 6:
                 // reportePelicula
@@ -153,6 +153,6 @@ int main() {
 
         }
 
-    } while (opcion != 5); //7
+    } while (opcion != 6); //7
     return 0;
 }

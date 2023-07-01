@@ -14,7 +14,7 @@ private:
     vector <Usuario>listado_usuarios;
     vector <Pelicula>lista_todas_peliculas_empresa;
 public:
-    EmpresaX(){};
+    //EmpresaX(){};
     EmpresaX(string nombre, string direccion, string RUC){
         this -> nombre = nombre;
         this -> direccion = direccion;
@@ -39,8 +39,8 @@ public:
 
     vector<Pelicula>getListadoTodasPeliculasEmpresa(){
         for(int i=0; i<listado_usuarios.size();i++){
-            for(int j=0; i<listado_usuarios.at(i).getListadoPelicula().size();j++){
-                lista_todas_peliculas_empresa.push_back(listado_usuarios.at(i).getListadoPelicula().at(i));
+            for(int j=0; j<listado_usuarios.at(i).getListadoPelicula().size();j++){
+                lista_todas_peliculas_empresa.push_back(listado_usuarios.at(i).getListadoPelicula().at(j));
             }
         }
         return lista_todas_peliculas_empresa;
@@ -53,7 +53,7 @@ public:
 
     void imprimirListaTodasPeliculasEmpresa(){
         cout<<"Lista de peliculas"<<endl;
-        for(int i; i<lista_todas_peliculas_empresa.size(); i++){
+        for(int i=0; i<lista_todas_peliculas_empresa.size(); i++){
             cout<<lista_todas_peliculas_empresa.at(i).getNombre_pelicula();
         }
     }
@@ -67,9 +67,18 @@ public:
         }
     }
 
+    // agregado
+    Pelicula BuscarPelicula(const string nombre) {
+        for (int i = 0; i < lista_todas_peliculas_empresa.size(); i++) {
+            if (lista_todas_peliculas_empresa[i].getNombre_pelicula() == nombre)
+                return lista_todas_peliculas_empresa[i];
+        }
+        return Pelicula();
+    }
 
     friend Pelicula RegistrarPelicula(EmpresaX *empresa);
-    friend Pelicula BuscarPelicula(EmpresaX x, string nombre);
+    friend void AlquilarPelicula(EmpresaX *empresa);
+    //friend Pelicula BuscarPelicula(EmpresaX x, string nombre);
    // friend AlquilarPelicula(EmpresaX *empresa);
 };
 
