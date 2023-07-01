@@ -15,7 +15,10 @@ private:
     string apellido_usuario;
     int peliculas_alquiladas = 0;
 
+
     vector<Pelicula>listado_peliculas;
+    // PARA CALCULOS FINALES:
+    vector <double> pagos;
 
 public:
     //sobrecarga de constructores
@@ -55,9 +58,52 @@ public:
         }
     }
 
+
+    // Elimina la película de su lista y retorna el valor que pagó (para poder añadirlo a ganancias por películas devueltas)
+    double devolucionPelicula(string nombre) {
+        double monto_pago=0;
+        cout<< listado_peliculas.size();
+
+        for (int i = 0; i < listado_peliculas.size(); i++) {
+            cout << listado_peliculas[i].getNombre_pelicula() << endl;
+        }
+        for (int i = 0; i < listado_peliculas.size(); i++) {
+            cout << listado_peliculas[i].getNombre_pelicula() << " Y " << nombre << endl;
+            if (listado_peliculas[i].getNombre_pelicula() == nombre) {
+                monto_pago += pagos[i];
+                // cout prueba
+                cout << "MONTO PAGO: " << monto_pago;
+                listado_peliculas.erase(listado_peliculas.begin() + i);
+                pagos.erase(pagos.begin() + i);
+            }
+        }
+
+        // cout prueba
+        cout << "MONTO PAGO: " << monto_pago<<endl;
+        return monto_pago;
+    }
+    void agregarPago(double cantidad) {
+        pagos.push_back(cantidad);
+        cout<<"Esta funcion se esta ejecutando"<<endl;
+    }
+
+    void imprimirPagos() {
+        for (int i = 0; i < pagos.size(); i++) {
+            cout << pagos[i] << " ";
+        }
+        cout << endl;
+    }
+
     vector<Pelicula>getListadoPelicula(){
         return listado_peliculas;
     }
+    vector <double> getPagos() {
+        return this -> pagos;
+    };
+
+
+
+
 };
 
 

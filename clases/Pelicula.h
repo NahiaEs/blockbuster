@@ -67,6 +67,9 @@ public:
     int getRanking(){
         return ranking;
     }
+    int getId() {
+        return ID;
+    }
     // SETTERS
     void disminucionEjemplares() {
         ejemplares_disponibles--;
