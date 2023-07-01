@@ -120,7 +120,7 @@ void AlquilarPelicula(EmpresaX &x) {
 
     // Verificar disponibilidad
     if (pelicula.cantidad_ejemplares > 0) {
-        cout << "Película disponible: " << pelicula.nombre << endl;
+        cout << "Película disfponible: " << pelicula.nombre << endl;
 
         cout << "Ingrese la cantidad de días de alquiler: ";
         cin >> cantidad_dias;

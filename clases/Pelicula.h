@@ -17,6 +17,7 @@ private:
 
 public:
     //sobrecarga de constructores
+
     //Cuando el usuario no coloca el ranking, por defecto ranking=5
     Pelicula(string nombre_pelicula, int anio_publicacion, int ejemplares_disponibles){
         this -> nombre_pelicula = nombre_pelicula;
@@ -63,7 +64,12 @@ public:
         return ranking;
     }
 
+
+
     // SETTERS
+    void disminucionEjemplares() {
+        this->ejemplares_disponibles--;
+    }
 };
 
 #endif //BLOCKBUSTER_PELICULA_H

@@ -29,7 +29,7 @@ Usuario registrarUsuario(){
 }
 
 
-Pelicula registrarPelicula(){
+Pelicula RegistrarPelicula(EmpresaX *empresa){
     string nombre_pelicula;
     int anio_publicacion;
     int ejemplares_disponibles;
@@ -60,12 +60,15 @@ Pelicula registrarPelicula(){
 
         //hacer validacion
         Pelicula pelicula(nombre_pelicula, anio_publicacion, ejemplares_disponibles, ranking);
+        empresa->lista_todas_peliculas_empresa.push_back(pelicula);
         return pelicula;
 
     }
     Pelicula pelicula(nombre_pelicula, anio_publicacion, ejemplares_disponibles);
+    empresa->lista_todas_peliculas_empresa.push_back(pelicula);
     return pelicula;
 }
+
 
 
 
@@ -82,7 +85,6 @@ int main() {
     Usuario usuario;
     int nro_peliculas_registradas;
     int opcion;
-    int index;
     do {
         opcion = menu();
         switch (opcion) {
@@ -92,7 +94,7 @@ int main() {
                     cin >> nro_peliculas_registradas;
 
                     for (int j = 0; j < nro_peliculas_registradas; j++) {
-                        Pelicula *p = new Pelicula(registrarPelicula());
+                        Pelicula *p = new Pelicula(RegistrarPelicula(empresa1));
                         cout << endl;
                         cout << "Imprimiendo pelicula registrada : " << endl;
                         cout << "Nombre de pelicula : " << p->getNombre_pelicula() << endl;
@@ -111,7 +113,8 @@ int main() {
                 usuario = registrarUsuario();
                 empresa1->registrarUsuario_Empresa(usuario);
                 cout << "Imprimiendo usuario registrado : " << endl;
-                empresa1->getListadoUsuario_Empresa();
+                empresa1->imprimirListadoUsuario_Empresa();
+                cout << "LONGITUD VECTOR USUARIO: " << empresa1->getListadoUsuarios().size();
                 break;
 
             case 3:
@@ -126,30 +129,28 @@ int main() {
                         BuscarNombre(*empresa1);
                         break;
                     case 2:
-
+                        BuscarAnio(*empresa1);
                         break;
-
-                        //case 3:
-
-
-                        //index = buscarPelicula(versiones);
-                        //if (index != -1)
-                        //   cout << versiones.at(index)<<" "<< anios.at(index)<<endl;
-                        //(versiones, anios);
-                        //break;
-
-                        //case 4:
-                        //alquilarPelicula();
-                        // case 5:
-                        //devolverPelicula();
-                        // case 6:
-                        // reportePelicula();
-
-
+                    case 3:
+                        BuscarRanking(*empresa1);
+                        break;
                 }
+                break;
+
+            case 4:
+                AlquilarPelicula(*empresa1);
+                break;
+                // case 5:
+                //devolverPelicula();
+                // case 6:
+                // reportePelicula
+
+            default:
+                break;
+
 
         }
 
-    } while (opcion != 4); //7
+    } while (opcion != 5); //7
     return 0;
 }

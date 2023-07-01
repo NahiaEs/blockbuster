@@ -51,19 +51,159 @@ EmpresaX* registrar_empresa(){
 
 Pelicula registrarPelicula();
 Usuario registrarUsuario();
+
 void BuscarNombre(EmpresaX x){
     string nombre;
     cout << "Ingrese nombre a buscar: ";
     cin.ignore();
     getline(cin, nombre);
 
-    x.imprimirListaTodasPeliculasEmpresa();
+    //x.imprimirListaTodasPeliculasEmpresa();
     for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++) {
         if(x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula()== nombre){
             cout<<"La pelicula "<<nombre<<" se encuentra disponible"<<endl;
+            cout << "los ejemplares que qeudan son: " << x.getListadoTodasPeliculasEmpresa().at(i).getEjemplares_disponibles() << endl;
         }
     }
 }
+
+//cambios nuevos
+
+void BuscarAnio(EmpresaX x) {
+    int anio;
+    cout << "Ingrese anio de publicacion a buscar: ";
+    cin >> anio;
+
+    for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++) {
+        if (x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion() == anio) {
+            cout<<x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula()<<endl;
+            cout<<x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion()<<endl;
+        }
+    }
+}
+
+
+void BuscarRanking(EmpresaX x) {
+
+    int ranking, menor_igual;
+
+    cout << "Ingrese ranking a buscar: ";
+    cin >> ranking;
+    cout << "(1) Mayor igual\n(2) Menor igual" << endl;
+    cout << "Elija una opcion (1/2): ";
+    cin >> menor_igual;
+
+    switch (menor_igual) {
+        case 1:
+            for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++) {
+                if (x.getListadoTodasPeliculasEmpresa().at(i).getRanking() >= ranking){
+                    cout<<x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula()<<endl;
+                    cout<<x.getListadoTodasPeliculasEmpresa().at(i).getRanking();
+                }
+            }
+            break;
+
+        case 2:
+            for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++) {
+                if (x.getListadoTodasPeliculasEmpresa().at(i).getRanking() >= ranking)
+                    cout<<x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula()<<endl;
+                    cout<<x.getListadoTodasPeliculasEmpresa().at(i).getRanking();
+            }
+            break;
+
+        default:
+            cout << "Opcion no valida. Regresando al menu." << endl;
+            break;
+    }
+
+}
+
+
+void AlquilarPelicula(EmpresaX x) {
+    string dni;
+    string nombre_pelicula;
+    int cantidad_dias;
+    int monto_final;
+
+    cout << "Ingrese su DNI: ";
+    cin >> dni;
+
+    // Verificar si el usuario está registrado
+    bool usuario_registrado = false;
+    //vector<Usuario>lista_usuarios_empresa = x.getListadoUsuarios();
+    cout << "LONGITUD VECTOR USUARIO: " << x.getListadoUsuarios().size();
+
+    for(int i; i <x.getListadoUsuarios().size(); i++){
+        if (dni == x.getListadoUsuarios().at(i).getDNI()){
+            usuario_registrado= true;
+            cout<<"Usuario encontrado"<<endl;
+        }
+    }
+
+    if (!usuario_registrado) {
+        cout << "Usted no está registrado. Derivando al registro de usuario..." << endl;
+        registrarUsuario();
+    }
+
+    cout << "Ingrese el nombre de la película a alquilar: ";
+    cin.ignore();
+    getline(cin, nombre_pelicula);
+
+    bool pelicula_encontrada = false;
+
+    for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++) {
+      if(nombre_pelicula == x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() and
+      x.getListadoTodasPeliculasEmpresa().at(i).getEjemplares_disponibles() > 0) {  //Verifico disponibilidad
+          // cout << "entro" << endl;
+         pelicula_encontrada = true;
+
+         Pelicula p(x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula(), x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion(),
+                    x.getListadoTodasPeliculasEmpresa().at(i).getEjemplares_disponibles(), x.getListadoTodasPeliculasEmpresa().at(i).getRanking());
+          cout << "Película disponible: "<< x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << endl;
+          cout << "Ingrese la cantidad de días de alquiler: ";
+          cin >> cantidad_dias;
+
+          // Calcular monto final según estrellas
+          if (x.getListadoTodasPeliculasEmpresa().at(i).getRanking() >= 3) {
+              monto_final = cantidad_dias * 5.4;
+          } else {
+              monto_final = cantidad_dias * 4.3;
+          }
+
+          // Actualizar cantidad_ejemplares
+          //x.getListadoTodasPeliculasEmpresa().at(i).getEjemplares_disponibles() - 1;
+          x.getListadoTodasPeliculasEmpresa().at(i).disminucionEjemplares();
+
+          // Agregar película a lista de películas del usuario:
+          for (int i = 0; i < x.getListadoUsuarios().size(); i ++) {
+              if (x.getListadoUsuarios().at(i).getDNI() == dni) {
+                  x.getListadoUsuarios().at(i).registrarPelicula(p);
+              }
+          }
+
+          cout << "Monto de alquiler: " << monto_final << endl;
+          cout << "¡Alquiler realizado con éxito!" << endl;
+            }
+
+
+      }
+
+    if(!pelicula_encontrada) cout << "Pelicula no encontrada." << endl;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 void BuscarAnio(EmpresaX const &x);

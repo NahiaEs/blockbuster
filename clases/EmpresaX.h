@@ -24,12 +24,16 @@ public:
         listado_usuarios.push_back(u1);
     }
 
-    void getListadoUsuario_Empresa(){
+    void imprimirListadoUsuario_Empresa(){
         for(int i=0; i<listado_usuarios.size();i++){
             cout<<listado_usuarios.at(i).getDNI()<<endl;
             cout<<listado_usuarios.at(i).getNombre()<<endl;
             cout<<listado_usuarios.at(i).getApellido()<<endl;
         }
+    }
+
+    vector<Usuario>getListadoUsuarios(){
+        return listado_usuarios;
     }
 
     vector<Pelicula>getListadoTodasPeliculasEmpresa(){
@@ -52,6 +56,10 @@ public:
             cout<<lista_todas_peliculas_empresa.at(i).getNombre_pelicula();
         }
     }
+
+
+    friend Pelicula RegistrarPelicula(EmpresaX *empresa);
+   // friend AlquilarPelicula(EmpresaX *empresa);
 };
 
 
