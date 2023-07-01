@@ -132,9 +132,9 @@ void AlquilarPelicula(EmpresaX x) {
     bool usuario_registrado = false;
     //vector<Usuario>lista_usuarios_empresa = x.getListadoUsuarios();
 
-    for (int i = 0; i < x.getListadoUsuarios().size(); i++) {
-        if (dni == x.getListadoUsuarios().at(i).getDNI()) {
-            cout << "" <<x.getListadoUsuarios().at(i).getDNI() << endl;
+    for (int j = 0; j < x.getListadoUsuarios().size(); j++) {
+        if (dni == x.getListadoUsuarios().at(j).getDNI()) {
+            cout << "" <<x.getListadoUsuarios().at(j).getDNI() << endl;
             usuario_registrado= true;
             cout<<"Usuario encontrado"<<endl;
         }
@@ -171,7 +171,7 @@ void AlquilarPelicula(EmpresaX x) {
           }
 
           // Actualizar cantidad_ejemplares
-          //x.getListadoTodasPeliculasEmpresa().at(i).getEjemplares_disponibles() - 1;
+          cout << "\nACA FALLA: " << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula();
           x.getListadoTodasPeliculasEmpresa().at(i).disminucionEjemplares();
 
           // Agregar película a lista de películas del usuario:

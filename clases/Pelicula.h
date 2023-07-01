@@ -29,11 +29,11 @@ public:
         this -> ejemplares_disponibles = ejemplares_disponibles;
     };
     //Cuando coloca el ranking
-    Pelicula(string nombre_pelicula, string anio_publicacion, int ejemplares_disponibles, int ranking){
-        this -> nombre_pelicula = nombre_pelicula;
-        this -> anio_publicacion= anio_publicacion;
-        this -> ejemplares_disponibles = ejemplares_disponibles;
-        this -> ranking = ranking;
+    Pelicula(string _nombre_pelicula, string _anio_publicacion, int _ejemplares_disponibles, int _ranking){
+        this -> nombre_pelicula = _nombre_pelicula;
+        this -> anio_publicacion= _anio_publicacion;
+        this -> ejemplares_disponibles = _ejemplares_disponibles;
+        this -> ranking = _ranking;
     };
 
     //Metodo para generar ID aleatorio
@@ -72,7 +72,7 @@ public:
 
     // SETTERS
     void disminucionEjemplares() {
-        this->ejemplares_disponibles--;
+        ejemplares_disponibles--;
     }
 
     void aumentoEjemplares() {
