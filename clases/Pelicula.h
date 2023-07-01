@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "vector"
+
 using namespace std;
 
 class Pelicula {
@@ -10,7 +11,7 @@ class Pelicula {
     //declaracion de atributos
 private:
     string nombre_pelicula;
-    int anio_publicacion;
+    string anio_publicacion;
     int ejemplares_disponibles;
     int ranking = 5;
     int ID;
@@ -18,14 +19,17 @@ private:
 public:
     //sobrecarga de constructores
 
+    // Constructor vacio
+    //Pelicula();
+
     //Cuando el usuario no coloca el ranking, por defecto ranking=5
-    Pelicula(string nombre_pelicula, int anio_publicacion, int ejemplares_disponibles){
+    Pelicula(string nombre_pelicula, string anio_publicacion, int ejemplares_disponibles){
         this -> nombre_pelicula = nombre_pelicula;
         this -> anio_publicacion= anio_publicacion;
         this -> ejemplares_disponibles = ejemplares_disponibles;
     };
     //Cuando coloca el ranking
-    Pelicula(string nombre_pelicula, int anio_publicacion, int ejemplares_disponibles, int ranking){
+    Pelicula(string nombre_pelicula, string anio_publicacion, int ejemplares_disponibles, int ranking){
         this -> nombre_pelicula = nombre_pelicula;
         this -> anio_publicacion= anio_publicacion;
         this -> ejemplares_disponibles = ejemplares_disponibles;
@@ -54,7 +58,7 @@ public:
     string getNombre_pelicula(){
         return nombre_pelicula;
     }
-    int getAnio_publicacion(){
+    string getAnio_publicacion(){
         return anio_publicacion;
     }
     int getEjemplares_disponibles(){
@@ -70,6 +74,16 @@ public:
     void disminucionEjemplares() {
         this->ejemplares_disponibles--;
     }
+
+    void aumentoEjemplares() {
+        this ->ejemplares_disponibles++;
+    }
+
+    void setRanking(int _ranking) {
+        this -> ranking = _ranking;
+    }
+
+
 };
 
 #endif //BLOCKBUSTER_PELICULA_H

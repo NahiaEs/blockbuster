@@ -70,7 +70,7 @@ void BuscarNombre(EmpresaX x){
 //cambios nuevos
 
 void BuscarAnio(EmpresaX x) {
-    int anio;
+    string anio;
     cout << "Ingrese anio de publicacion a buscar: ";
     cin >> anio;
 
@@ -131,16 +131,16 @@ void AlquilarPelicula(EmpresaX x) {
     // Verificar si el usuario está registrado
     bool usuario_registrado = false;
     //vector<Usuario>lista_usuarios_empresa = x.getListadoUsuarios();
-    cout << "LONGITUD VECTOR USUARIO: " << x.getListadoUsuarios().size();
 
-    for(int i; i <x.getListadoUsuarios().size(); i++){
-        if (dni == x.getListadoUsuarios().at(i).getDNI()){
+    for (int i = 0; i < x.getListadoUsuarios().size(); i++) {
+        if (dni == x.getListadoUsuarios().at(i).getDNI()) {
+            cout << "" <<x.getListadoUsuarios().at(i).getDNI() << endl;
             usuario_registrado= true;
             cout<<"Usuario encontrado"<<endl;
         }
     }
 
-    if (!usuario_registrado) {
+    if (usuario_registrado == false) {
         cout << "Usted no está registrado. Derivando al registro de usuario..." << endl;
         registrarUsuario();
     }
@@ -191,6 +191,56 @@ void AlquilarPelicula(EmpresaX x) {
     if(!pelicula_encontrada) cout << "Pelicula no encontrada." << endl;
 
 }
+
+//Pelicula BuscarPelicula(EmpresaX x, string nombre) {
+  //  for (int i = 0; i < x.lista_todas_peliculas_empresa.size(); i++) {
+    //    if (x.lista_todas_peliculas_empresa[i].getNombre_pelicula() == nombre) return x.lista_todas_peliculas_empresa[i];
+    //}
+    //return Pelicula();
+//}
+
+void DevolverPelicula(EmpresaX x) {
+
+    string nombre_pelicula;
+    int ranking_nuevo;
+
+    cout << "Ingrese el nombre o ID de la película a devolver: ";
+    cin >> nombre_pelicula;
+
+    // Buscar la película en el listado
+    //Pelicula pelicula = BuscarPelicula(x, nombre_pelicula);
+    Pelicula pelicula("a","a",2,2);
+
+    if (pelicula.getNombre_pelicula().empty()) {
+        cout << "La película no existe o no se ha solicitado un alquiler." << endl;
+        return;
+    }
+
+    cout << "Ingrese el ranking nuevo de la película: ";
+    cin >> ranking_nuevo;
+
+    if(ranking_nuevo < 0 or ranking_nuevo > 5) {
+        cout << "Ranking dado no se encuentra entre 1 y 5. "<<endl;
+        cout << "Ingrese el ranking nuevo de la película: ";
+        cin >> ranking_nuevo;
+    }
+
+    // Actualizar el ranking de la película
+    pelicula.setRanking(ranking_nuevo);
+
+    char respuesta;
+    cout << "¿Está de acuerdo con la devolución de la película? (S/N): ";
+    cin >> respuesta;
+
+    if (respuesta == 'S' || respuesta == 's') {
+        // Aumentar la cantidad disponible de la película en 1
+        pelicula.aumentoEjemplares();
+        cout << "Devolución exitosa." << endl;
+    } else {
+        cout << "No se realizó la devolución." << endl;
+    }
+}
+
 
 
 

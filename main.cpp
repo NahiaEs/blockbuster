@@ -31,7 +31,7 @@ Usuario registrarUsuario(){
 
 Pelicula RegistrarPelicula(EmpresaX *empresa){
     string nombre_pelicula;
-    int anio_publicacion;
+    string anio_publicacion;
     int ejemplares_disponibles;
     int ranking;
     int opcion;
@@ -102,7 +102,7 @@ int main() {
                         cout << "Anio de publicacion : " << p->getAnio_publicacion() << endl;
                         cout << "Ranking : " << p->getRanking() << endl;
                         usuario.registrarPelicula(*p);
-                        empresa1->registrarUsuario_Empresa(usuario);
+                        //empresa1->registrarUsuario_Empresa(usuario);
                     }
                 } else {
                     cout << "Por favor, registrar un usuario " << endl;
@@ -115,6 +115,7 @@ int main() {
                 cout << "Imprimiendo usuario registrado : " << endl;
                 empresa1->imprimirListadoUsuario_Empresa();
                 cout << "LONGITUD VECTOR USUARIO: " << empresa1->getListadoUsuarios().size();
+                empresa1->imprimirVectorUsuarios();
                 break;
 
             case 3:
@@ -140,8 +141,9 @@ int main() {
             case 4:
                 AlquilarPelicula(*empresa1);
                 break;
-                // case 5:
-                //devolverPelicula();
+            case 5:
+                DevolverPelicula(*empresa1);
+                break;
                 // case 6:
                 // reportePelicula
 
