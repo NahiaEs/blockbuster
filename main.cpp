@@ -74,7 +74,7 @@ Pelicula RegistrarPelicula(EmpresaX *empresa)
 
 int main()
 {
-    EmpresaX *empresa1 = registrar_empresa();
+    EmpresaX empresa1 = registrar_empresa();
     vector<int> listaids;
     vector<int> listausuarios;
     int opcionsubmenu;
@@ -88,14 +88,14 @@ int main()
         switch (opcion)
         {
         case 1:
-            if (empresa1->getCantidadUsuarioEmpresa() != 0)
+            if (empresa1.getCantidadUsuarioEmpresa() != 0)
             {
                 cout << "Nro de peliculas por registrar : ";
                 cin >> nro_peliculas_registradas;
 
                 for (int j = 0; j < nro_peliculas_registradas; j++)
                 {
-                    Pelicula *p = new Pelicula(RegistrarPelicula(empresa1));
+                    Pelicula *p = new Pelicula(RegistrarPelicula(&empresa1));
                     cout << endl;
                     cout << "Imprimiendo pelicula registrada : " << endl;
                     cout << "Nombre de pelicula : " << p->getNombre_pelicula() << endl;
@@ -114,11 +114,11 @@ int main()
 
         case 2:
             usuario = registrarUsuario();
-            empresa1->registrarUsuario_Empresa(usuario);
+            empresa1.registrarUsuario_Empresa(usuario);
             cout << "Imprimiendo usuario registrado : " << endl;
-            empresa1->imprimirListadoUsuario_Empresa();
-            cout << "LONGITUD VECTOR USUARIO: " << empresa1->getListadoUsuarios().size();
-            empresa1->imprimirVectorUsuarios();
+            empresa1.imprimirListadoUsuario_Empresa();
+            cout << "LONGITUD VECTOR USUARIO: " << empresa1.getListadoUsuarios().size();
+            empresa1.imprimirVectorUsuarios();
             break;
 
         case 3:
@@ -131,22 +131,22 @@ int main()
             switch (opcionsubmenu)
             {
             case 1:
-                BuscarNombre(*empresa1);
+                BuscarNombre(empresa1);
                 break;
             case 2:
-                BuscarAnio(*empresa1);
+                BuscarAnio(empresa1);
                 break;
             case 3:
-                BuscarRanking(*empresa1);
+                BuscarRanking(empresa1);
                 break;
             }
             break;
 
         case 4:
-            AlquilarPelicula(empresa1);
+            AlquilarPelicula(&empresa1);
             break;
         case 5:
-            DevolverPelicula(empresa1);
+            DevolverPelicula(&empresa1);
             break;
             // case 6:
             // reportePelicula

@@ -38,11 +38,11 @@ public:
     }
 
     vector<Pelicula>getListadoTodasPeliculasEmpresa(){
-        for(int i=0; i<listado_usuarios.size();i++){
-            for(int j=0; j<listado_usuarios.at(i).getListadoPelicula().size();j++){
-                lista_todas_peliculas_empresa.push_back(listado_usuarios.at(i).getListadoPelicula().at(j));
-            }
-        }
+//        for(int i=0; i<listado_usuarios.size();i++){
+//            for(int j=0; j<listado_usuarios.at(i).getListadoPelicula().size();j++){
+//                lista_todas_peliculas_empresa.push_back(listado_usuarios.at(i).getListadoPelicula().at(j));
+//            }
+//        }
         return lista_todas_peliculas_empresa;
     }
 
@@ -74,6 +74,15 @@ public:
                 return lista_todas_peliculas_empresa[i];
         }
         return Pelicula();
+    }
+
+    // funcion de alquilar de prueba
+    void reducirEjemplaresDisponibles (string _nombre) {
+        for (int i = 0; i < lista_todas_peliculas_empresa.size(); i ++) {
+            if (lista_todas_peliculas_empresa[i].getNombre_pelicula() == _nombre) {
+                lista_todas_peliculas_empresa[i].disminucionEjemplares();
+            }
+        }
     }
 
     friend Pelicula RegistrarPelicula(EmpresaX *empresa);
