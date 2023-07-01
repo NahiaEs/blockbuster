@@ -208,6 +208,8 @@ void AlquilarPelicula(EmpresaX *x)
 
         cout << "Monto de alquiler: " << monto_final << endl;
         cout << "¡Alquiler realizado con éxito!" << endl;
+        x->cant_peliculas_alquiladas++;
+        x->ganancias_totales += monto_final;
     }
     else {
         cout << "Pelicula no encontrada!" << endl;

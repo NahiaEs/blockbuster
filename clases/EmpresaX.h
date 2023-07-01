@@ -15,6 +15,7 @@ private:
     vector <Pelicula>lista_todas_peliculas_empresa;
     // Ganancias por películas YA DEVUELTAS
     double ganancia_peliculas_devueltas=0;
+    double ganancias_totales =0;
 
     // Cantidad de peliculas que han sido alquiladas
     int cant_peliculas_alquiladas=0;
@@ -99,23 +100,19 @@ public:
 
 
     void mostrarDatos() {
-        double ganancias_peliculas_alquiladas = 0;
+        int cantidad_peliculas_disponibles = 0;
 
         cout << "----- REPORTE ------" << endl;
         cout << "CANTIDAD DE PELICULAS ALQUILADAS: " << cant_peliculas_alquiladas << endl;
-        cout << "CANTIDAD DE PELICULAS DISPONIBLES: " << lista_todas_peliculas_empresa.size() - cant_peliculas_alquiladas << endl;
-        cout << "GANANCIAS POR PELICULAS DEVUELTAS: " << ganancia_peliculas_devueltas<<endl;
-
-        // Sumar todos los valores de todos los vectores pagos de todos los usuarios para obtener las ganancias por peliculas alquiladas.
-        for (int i = 0; i < listado_usuarios.size(); i++) {
-            cout<<listado_usuarios[i].getPagos().size();
-            for (int j = 0; j < listado_usuarios[i].getPagos().size(); j++) {
-                ganancias_peliculas_alquiladas += listado_usuarios[i].getPagos()[j];
-            }
+//        cout << "CANTIDAD DE PELICULAS DISPONIBLES: " << lista_todas_peliculas_empresa.size() - cant_peliculas_alquiladas << endl;
+        cout << "CANTIDAD DE PELICULAS DISPONIBLES: " ;
+        for (int i = 0; i < lista_todas_peliculas_empresa.size(); i++) {
+            cantidad_peliculas_disponibles += lista_todas_peliculas_empresa[i].getEjemplares_disponibles();
         }
-
-        cout << "GANANCIAS POR PELICULAS ALQUILADAS:" << ganancias_peliculas_alquiladas << endl;
-        cout << "GANANCIAS TOTALES: " << ganancias_peliculas_alquiladas + ganancia_peliculas_devueltas << endl;
+        cout << cantidad_peliculas_disponibles << endl;
+        cout << "GANANCIAS POR PELICULAS DEVUELTAS: " << ganancia_peliculas_devueltas<<endl;
+        cout << "GANANCIAS POR PELICULAS ALQUILADAS:" << ganancias_totales - ganancia_peliculas_devueltas << endl;
+        cout << "GANANCIAS TOTALES: " << ganancias_totales << endl;
     }
 
     friend Pelicula RegistrarPelicula(EmpresaX *empresa);
