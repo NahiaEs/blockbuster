@@ -9,7 +9,62 @@
 #include "../clases/Usuario.h"
 #include "../clases/Pelicula.h"
 
-using namespace std;
+void leerPelis(string nombre_archivo, EmpresaX &x) {
+
+    // crear objeto fstream
+    fstream archivo(nombre_archivo, ios::in);
+
+    if (!archivo.is_open()) { // verificar que esté abierto
+        cout << "Error al abrir el archivo." << endl;
+    }
+
+    else {
+
+        string linea;
+
+        while(getline(archivo, linea)) {
+
+            cout << linea << endl;
+            vector <int> indices;
+
+            // guardar los índices donde están las comas para usarlos con el método substr()
+            for (int i = 0; i < linea.length(); i++) {
+                if (linea[i]==',') {
+                    indices.push_back(i);
+                }
+            }
+
+            // Variables para inicializar un objeto pelicula
+            string _titulo = linea.substr(0, indices[0]);
+            string _anio = linea.substr(indices[0]+1, indices[1]-indices[0]-1);
+            int cant_ejemplares = stoi(linea.substr(indices[1]+1, indices[2]-indices[1]-1));
+            int _ranking = stoi(linea.substr(indices[2]+1, indices[3]-indices[2]-1));
+
+            // Agregar las peliculas al vector
+            x.lista_todas_peliculas_empresa.push_back(Pelicula(_titulo, _anio, cant_ejemplares, _ranking));
+        }
+
+    }
+
+    // Cerrar el archivo
+    archivo.close();
+}
+
+void clear() {
+    char continuar;
+    cout << "Presione C para continuar...";
+    cin >> continuar;
+    if (continuar == 'C') cout << "\033[2J\033[0;0H";
+}
+
+string aMinusculas (string texto) {
+    string nuevo_texto = "";
+    for (auto i:texto) {
+        nuevo_texto += tolower(i);
+    }
+    return nuevo_texto;
+}
+
 void imprimir_empresa(string nombre_empresa, string direccion_empresa, string ruc_empresa)
 {
     cout << "-----DATOS DE LA EMPRESA-----" << endl;
@@ -26,15 +81,16 @@ EmpresaX registrar_empresa()
 
     cout << "-----REGISTRAR EMPRESA-----" << endl;
     cout << "Nombre empresa : ";
-    cin.ignore();
+    //cin.ignore();
     getline(cin, nombre_empresa);
+    nombre_empresa = nombre_empresa;
 
     cout << "Direccion : ";
-    cin.ignore();
+    //cin.ignore();
     getline(cin, direccion_empresa);
 
     cout << "RUC : ";
-    cin.ignore();
+    //cin.ignore();
     getline(cin, ruc_empresa);
 
     imprimir_empresa(nombre_empresa, direccion_empresa, ruc_empresa);
@@ -54,6 +110,7 @@ void BuscarNombre(EmpresaX x)
     cout << "Ingrese nombre a buscar: ";
     cin.ignore();
     getline(cin, nombre);
+    nombre = aMinusculas(nombre);
 
     // x.imprimirListaTodasPeliculasEmpresa();
     for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
@@ -71,15 +128,63 @@ void BuscarNombre(EmpresaX x)
 void BuscarAnio(EmpresaX x)
 {
     string anio;
+    int menor_igual;
     cout << "Ingrese anio de publicacion a buscar: ";
     cin >> anio;
+    cout << "(1) Mayor igual\n(2) Menor igual" << endl;
+    cout << "Elija una opcion (1/2): ";
+    cin >> menor_igual;
+
+
+    switch (menor_igual)
+    {
+        case 1:
+            cout << setw(7) << "ID";
+            cout << setw(20) <<"TITULO";
+            cout << setw(7) <<  "AÑO";
+            cout << setw(5) << "RANK";
+            cout << setw(5) << "DISP";
+            cout << endl;
+            for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
+            {
+                if (x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion() >= anio)
+                {
+                    x.getListadoTodasPeliculasEmpresa().at(i).imprimirDatos();
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << "\t";
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getRanking() << endl;
+                }
+            }
+            break;
+
+        case 2:
+            cout << setw(7) << "ID";
+            cout << setw(20) <<"TITULO";
+            cout << setw(7) <<  "AÑO";
+            cout << setw(5) << "RANK";
+            cout << setw(5) << "DISP";
+            cout << endl;
+            for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
+            {
+                if (x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion() <= anio) {
+                    x.getListadoTodasPeliculasEmpresa().at(i).imprimirDatos();
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << "\t";
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getRanking() << endl;
+                }
+            }
+            break;
+
+        default:
+            cout << "Opcion no valida. Regresando al menu." << endl;
+            break;
+    }
 
     for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
     {
         if (x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion() == anio)
         {
-            cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << endl;
-            cout << x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion() << endl;
+            x.getListadoTodasPeliculasEmpresa().at(i).imprimirDatos();
+            //cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << endl;
+            //cout << x.getListadoTodasPeliculasEmpresa().at(i).getAnio_publicacion() << endl;
         }
     }
 }
@@ -95,31 +200,41 @@ void BuscarRanking(EmpresaX x)
     cout << "Elija una opcion (1/2): ";
     cin >> menor_igual;
 
+    cout << setw(7) << "ID";
+    cout << setw(20) <<"TITULO";
+    cout << setw(7) <<  "AÑO";
+    cout << setw(5) << "RANK";
+    cout << setw(5) << "DISP";
+    cout << endl;
+
     switch (menor_igual)
     {
-    case 1:
-        for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
-        {
-            if (x.getListadoTodasPeliculasEmpresa().at(i).getRanking() >= ranking)
+        case 1:
+            for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
             {
-                cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << endl;
-                cout << x.getListadoTodasPeliculasEmpresa().at(i).getRanking();
+                if (x.getListadoTodasPeliculasEmpresa().at(i).getRanking() >= ranking)
+                {
+                    x.getListadoTodasPeliculasEmpresa().at(i).imprimirDatos();
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << "\t";
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getRanking() << endl;
+                }
             }
-        }
-        break;
+            break;
 
-    case 2:
-        for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
-        {
-            if (x.getListadoTodasPeliculasEmpresa().at(i).getRanking() >= ranking)
-                cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << endl;
-            cout << x.getListadoTodasPeliculasEmpresa().at(i).getRanking();
-        }
-        break;
+        case 2:
+            for (int i = 0; i < x.getListadoTodasPeliculasEmpresa().size(); i++)
+            {
+                if (x.getListadoTodasPeliculasEmpresa().at(i).getRanking() <= ranking) {
+                    x.getListadoTodasPeliculasEmpresa().at(i).imprimirDatos();
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula() << "\t";
+                    //cout << x.getListadoTodasPeliculasEmpresa().at(i).getRanking() << endl;
+                }
+            }
+            break;
 
-    default:
-        cout << "Opcion no valida. Regresando al menu." << endl;
-        break;
+        default:
+            cout << "Opcion no valida. Regresando al menu." << endl;
+            break;
     }
 }
 
@@ -159,6 +274,7 @@ void AlquilarPelicula(EmpresaX *x)
     cout << "Ingrese el nombre de la película a alquilar: ";
     cin.ignore();
     getline(cin, nombre_pelicula);
+    nombre_pelicula = aMinusculas(nombre_pelicula);
     cout<<"Nombre pelicula alquilada :"<<nombre_pelicula<<endl;
 
     auto indicePelicula = 0;
@@ -261,11 +377,13 @@ int BuscarUsuario(EmpresaX *x, string _dni)
     return indiceUsuario;
 }
 
+
 // nueva
 void DevolverPelicula(EmpresaX *x) {
-    int opcion, id, indicePelicula, indiceUsuario;
+    int opcion, id, indicePelicula, indiceUsuario, nuevo_ranking;
     string nombre, dni;
-    bool usuarioRegistrado = false;
+    bool ha_alquilado, usuarioRegistrado = false;
+    char  proceder_devolucion, solicitar_nuevo_ranking;
     double monto = 0;
 
     cout << "Ingrese su DNI: "; cin >> dni;
@@ -274,6 +392,7 @@ void DevolverPelicula(EmpresaX *x) {
         if (x->getListadoUsuarios()[i].getDNI() == dni) {
             cout << "Usuario encontrado. Se procede." << endl;
             usuarioRegistrado=true;
+            indiceUsuario = i;
         }
     }
 
@@ -297,37 +416,95 @@ void DevolverPelicula(EmpresaX *x) {
             cout << "ID: ";
             cin >> id;
 
-            // Aumenta los ejemplares en el vector de la CLASE
             indicePelicula = BuscarPelicula(x, id);
+
+            // Verificar que el usuario haya alquilado dicha pelicula
+            ha_alquilado = x->listado_usuarios[indiceUsuario].haAlquilado(x->lista_todas_peliculas_empresa[indicePelicula]);
+
+            if (!ha_alquilado)
+            {
+                cout << "¡La película no ha sido alquilada por este usuario!" << endl;
+                break;
+            }
+
+
+            // AGREGAR NUEVO RANKING
+            cout << "¿Desea agregar un nuevo ranking? (S/N) : ";
+            cin >> solicitar_nuevo_ranking;
+            if (solicitar_nuevo_ranking == 'S') {
+                cout << "Ingrese nuevo ranking: ";
+                cin >> nuevo_ranking;
+                x->lista_todas_peliculas_empresa[indicePelicula].setRanking(nuevo_ranking);
+            }
+
+            // PROCEDER CON DEVOLUCIÓN
+            cout << "¿Desea proceder con la devolución? (S/N): ";
+            cin >> proceder_devolucion;
+
+            if (proceder_devolucion == 'S') break;
+            // Aumenta los ejemplares en el vector de la CLASE
+
             x->lista_todas_peliculas_empresa[indicePelicula].aumentoEjemplares();
 
             // Elimina película alquilada del vector de películas del USUARIO
-            indiceUsuario = BuscarUsuario(x, dni);
+            //indiceUsuario = BuscarUsuario(x, dni);
             monto = x->getListadoUsuarios()[indiceUsuario].devolucionPelicula(nombre);
 
             // Aumenta pago a ganancias por películas devueltas.
             x->sumarGananciasPeliculasDevueltas(monto);
+
+
 
 
             break;
-       case 2:
+        case 2:
 
-           cout << "Nombre: ";
+            cout << "Nombre: ";
             cin.ignore();
             getline(cin, nombre);
-           // Aumenta los ejemplares en el vector de la CLASE
-           indicePelicula = BuscarPelicula(x, nombre);
+            nombre = aMinusculas(nombre);
+
+            indicePelicula = BuscarPelicula(x, nombre);
+
+            // Verificar que el usuario haya alquilado dicha pelicula
+            ha_alquilado = x->listado_usuarios[indiceUsuario].haAlquilado(x->lista_todas_peliculas_empresa[indicePelicula]);
+
+            if (!ha_alquilado)
+            {
+                cout << "¡La película no ha sido alquilada por este usuario!" << endl;
+                break;
+            }
+
+            // AGREGAR NUEVO RANKING
+            cout << "¿Desea agregar un nuevo ranking? (S/N) : ";
+            cin >> solicitar_nuevo_ranking;
+            if (solicitar_nuevo_ranking == 'S') {
+                cout << "Ingrese nuevo ranking: ";
+                cin >> nuevo_ranking;
+                x->lista_todas_peliculas_empresa[indicePelicula].setRanking(nuevo_ranking);
+            }
+
+            // PROCEDER CON DEVOLUCIÓN
+            cout << "¿Desea proceder con la devolución? (S/N): ";
+            cin >> proceder_devolucion;
+
+            if (proceder_devolucion == 'N') break;
+
+            // Aumenta los ejemplares en el vector de la CLASE
+
             x->lista_todas_peliculas_empresa[indicePelicula].aumentoEjemplares();
 
             // Elimina película alquilada del vector de películas del USUARIO
-            indiceUsuario = BuscarUsuario(x, dni);
+            //indiceUsuario = BuscarUsuario(x, dni);
             monto = x->getListadoUsuarios()[indiceUsuario].devolucionPelicula(nombre);
 
             // Aumenta pago a ganancias por películas devueltas.
             x->sumarGananciasPeliculasDevueltas(monto);
-           break;
+            break;
 
     }
+
+
 }
 
 

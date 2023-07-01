@@ -8,7 +8,6 @@
 #include "utils/funciones.h"
 #include "utils/menu.h"
 
-using namespace std;
 
 Usuario registrarUsuario()
 {
@@ -63,18 +62,22 @@ Pelicula RegistrarPelicula(EmpresaX *empresa)
         } while (ranking < 0 || ranking > 5);
 
         // hacer validacion
-        Pelicula pelicula(nombre_pelicula, anio_publicacion, ejemplares_disponibles, ranking);
+        Pelicula pelicula(aMinusculas(nombre_pelicula), anio_publicacion, ejemplares_disponibles, ranking);
         empresa->lista_todas_peliculas_empresa.push_back(pelicula);
         return pelicula;
     }
-    Pelicula pelicula(nombre_pelicula, anio_publicacion, ejemplares_disponibles);
+    Pelicula pelicula(aMinusculas(nombre_pelicula), anio_publicacion, ejemplares_disponibles);
     empresa->lista_todas_peliculas_empresa.push_back(pelicula);
     return pelicula;
 }
 
 int main()
 {
+    srand((unsigned int)time (NULL));
     EmpresaX empresa1 = registrar_empresa();
+
+    clear();
+
     vector<int> listaids;
     vector<int> listausuarios;
     int opcionsubmenu;
@@ -82,80 +85,85 @@ int main()
     Usuario usuario;
     int nro_peliculas_registradas;
     int opcion;
+
+    leerPelis("peliculas.txt", empresa1);
+
     do
     {
         opcion = menu();
         switch (opcion)
         {
-        case 1:
-            if (empresa1.getCantidadUsuarioEmpresa() != 0)
-            {
-                cout << "Nro de peliculas por registrar : ";
-                cin >> nro_peliculas_registradas;
-
-                for (int j = 0; j < nro_peliculas_registradas; j++)
-                {
-                    Pelicula *p = new Pelicula(RegistrarPelicula(&empresa1));
-                    p->generarID(empresa1.);
-                    cout << endl;
-                    cout << "Imprimiendo pelicula registrada : " << endl;
-                    cout << "Nombre de pelicula : " << p->getNombre_pelicula() << endl;
-                    cout << "Ejemplares disponibles : " << p->getEjemplares_disponibles() << endl;
-                    cout << "Anio de publicacion : " << p->getAnio_publicacion() << endl;
-                    cout << "Ranking : " << p->getRanking() << endl;
-                    usuario.registrarPelicula(*p);
-                    // empresa1->registrarUsuario_Empresa(usuario);
-                }
-            }
-            else
-            {
-                cout << "Por favor, registrar un usuario " << endl;
-            }
-            break;
-
-        case 2:
-            usuario = registrarUsuario();
-            empresa1.registrarUsuario_Empresa(usuario);
-            cout << "Imprimiendo usuario registrado : " << endl;
-            empresa1.imprimirListadoUsuario_Empresa();
-            cout << "LONGITUD VECTOR USUARIO: " << empresa1.getListadoUsuarios().size();
-            empresa1.imprimirVectorUsuarios();
-            break;
-
-        case 3:
-            cout << "1. Por nombre" << endl;
-            cout << "2. Por anio de publicacion" << endl;
-            cout << "3. Por ranking" << endl;
-            cout << "Ingrese una opcion : ";
-            cin >> opcionsubmenu;
-
-            switch (opcionsubmenu)
-            {
             case 1:
-                BuscarNombre(empresa1);
+                if (empresa1.getCantidadUsuarioEmpresa() != 0)
+                {
+                    cout << "Nro de peliculas por registrar : ";
+                    cin >> nro_peliculas_registradas;
+
+                    for (int j = 0; j < nro_peliculas_registradas; j++)
+                    {
+                        Pelicula *p = new Pelicula(RegistrarPelicula(&empresa1));
+                        // p->generarID(empresa1.getIdsGenerados());
+                        cout << endl;
+                        cout << "Imprimiendo pelicula registrada : " << endl;
+                        cout << "Nombre de pelicula : " << p->getNombre_pelicula() << endl;
+                        cout << "Ejemplares disponibles : " << p->getEjemplares_disponibles() << endl;
+                        cout << "Anio de publicacion : " << p->getAnio_publicacion() << endl;
+                        cout << "Ranking : " << p->getRanking() << endl;
+                        usuario.registrarPelicula(*p);
+                        // empresa1->registrarUsuario_Empresa(usuario);
+                    }
+                }
+                else
+                {
+                    cout << "Por favor, registrar un usuario " << endl;
+                }
                 break;
+
             case 2:
-                BuscarAnio(empresa1);
+                usuario = registrarUsuario();
+                empresa1.registrarUsuario_Empresa(usuario);
+                cout << "Imprimiendo usuario registrado : " << endl;
+                empresa1.imprimirListadoUsuario_Empresa();
+                cout << "LONGITUD VECTOR USUARIO: " << empresa1.getListadoUsuarios().size();
+                empresa1.imprimirVectorUsuarios();
                 break;
+
             case 3:
-                BuscarRanking(empresa1);
+                cout << "1. Por nombre" << endl;
+                cout << "2. Por anio de publicacion" << endl;
+                cout << "3. Por ranking" << endl;
+                cout << "Ingrese una opcion : ";
+                cin >> opcionsubmenu;
+
+                switch (opcionsubmenu)
+                {
+                    case 1:
+                        BuscarNombre(empresa1);
+                        break;
+                    case 2:
+                        BuscarAnio(empresa1);
+                        break;
+                    case 3:
+                        BuscarRanking(empresa1);
+                        break;
+                }
                 break;
-            }
-            break;
 
-        case 4:
-            AlquilarPelicula(&empresa1);
-            break;
-        case 5:
-            DevolverPelicula(&empresa1);
-            break;
-        case 6:
-            empresa1.mostrarDatos();
-            break;
+            case 4:
+                AlquilarPelicula(&empresa1);
+                break;
+            case 5:
+                DevolverPelicula(&empresa1);
+                break;
+            case 6:
+                empresa1.mostrarDatos();
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
+
+        clear();
 
     } while (opcion != 7);
     return 0;

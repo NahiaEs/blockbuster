@@ -97,6 +97,16 @@ public:
         return this -> pagos;
     };
 
+    bool haAlquilado(Pelicula p) {
+        for (int i = 0; i < listado_peliculas.size(); i++) {
+            if (listado_peliculas[i].getNombre_pelicula() == p.getNombre_pelicula())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
