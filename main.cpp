@@ -148,13 +148,14 @@ int main()
         case 5:
             DevolverPelicula(&empresa1);
             break;
-            // case 6:
-            // reportePelicula
+        case 6:
+            empresa1.mostrarDatos();
+            break;
 
         default:
             break;
         }
 
-    } while (opcion != 6); // 7
+    } while (opcion != 7);
     return 0;
 }

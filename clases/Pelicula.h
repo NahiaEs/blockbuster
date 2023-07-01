@@ -76,7 +76,7 @@ public:
     }
 
     void aumentoEjemplares() {
-        this ->ejemplares_disponibles++;
+        ejemplares_disponibles++;
     }
 
     void setRanking(int _ranking) {

@@ -157,6 +157,7 @@ void AlquilarPelicula(EmpresaX *x)
     cout << "Ingrese el nombre de la película a alquilar: ";
     cin.ignore();
     getline(cin, nombre_pelicula);
+    cout<<"Nombre pelicula alquilada :"<<nombre_pelicula<<endl;
 
     auto indicePelicula = 0;
     for (int i = 0; i < x->getListadoTodasPeliculasEmpresa().size(); i++)
@@ -294,7 +295,7 @@ void DevolverPelicula(EmpresaX *x) {
 
             // Aumenta los ejemplares en el vector de la CLASE
             indicePelicula = BuscarPelicula(x, id);
-            x->getListadoTodasPeliculasEmpresa()[indicePelicula].aumentoEjemplares();
+            x->lista_todas_peliculas_empresa[indicePelicula].aumentoEjemplares();
 
             // Elimina película alquilada del vector de películas del USUARIO
             indiceUsuario = BuscarUsuario(x, dni);
@@ -308,10 +309,11 @@ void DevolverPelicula(EmpresaX *x) {
        case 2:
 
            cout << "Nombre: ";
-           cin >> nombre;
+            cin.ignore();
+            getline(cin, nombre);
            // Aumenta los ejemplares en el vector de la CLASE
            indicePelicula = BuscarPelicula(x, nombre);
-            x->getListadoTodasPeliculasEmpresa()[indicePelicula].aumentoEjemplares();
+            x->lista_todas_peliculas_empresa[indicePelicula].aumentoEjemplares();
 
             // Elimina película alquilada del vector de películas del USUARIO
             indiceUsuario = BuscarUsuario(x, dni);

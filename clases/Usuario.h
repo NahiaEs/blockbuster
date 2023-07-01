@@ -65,21 +65,17 @@ public:
         cout<< listado_peliculas.size();
 
         for (int i = 0; i < listado_peliculas.size(); i++) {
-            cout << listado_peliculas[i].getNombre_pelicula() << endl;
-        }
-        for (int i = 0; i < listado_peliculas.size(); i++) {
             cout << listado_peliculas[i].getNombre_pelicula() << " Y " << nombre << endl;
             if (listado_peliculas[i].getNombre_pelicula() == nombre) {
                 monto_pago += pagos[i];
                 // cout prueba
-                cout << "MONTO PAGO: " << monto_pago;
                 listado_peliculas.erase(listado_peliculas.begin() + i);
                 pagos.erase(pagos.begin() + i);
+                cout << listado_peliculas.size() << " " << pagos.size() << endl;
             }
         }
 
         // cout prueba
-        cout << "MONTO PAGO: " << monto_pago<<endl;
         return monto_pago;
     }
     void agregarPago(double cantidad) {
