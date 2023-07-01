@@ -169,10 +169,11 @@ void AlquilarPelicula(EmpresaX *x) {
         monto_final = cantidad_dias * 4.3;
     }
 
+    cout << x->lista_todas_peliculas_empresa[indicePelicula].getEjemplares_disponibles() << endl;
     // Actualizar cantidad_ejemplares
     x->lista_todas_peliculas_empresa[indicePelicula].disminucionEjemplares();
 
-
+    cout << x->lista_todas_peliculas_empresa[indicePelicula].getEjemplares_disponibles() << endl;
     // Agregar película a lista de películas del usuario:
     for (int k = 0; k < x->getListadoUsuarios().size(); k ++) {
         if (x->getListadoUsuarios().at(k).getDNI() == dni) {
@@ -186,76 +187,71 @@ void AlquilarPelicula(EmpresaX *x) {
     cout << "¡Alquiler realizado con éxito!" << endl;
 }
 
-//Pelicula BuscarPelicula(EmpresaX x, string nombre) {
-  //  for (int i = 0; i < x.lista_todas_peliculas_empresa.size(); i++) {
-    //    if (x.lista_todas_peliculas_empresa[i].getNombre_pelicula() == nombre) return x.lista_todas_peliculas_empresa[i];
-    //}
-    //return Pelicula();
-//}
+Pelicula BuscarPelicula(EmpresaX *x, string nombre) {
+  for (int i = 0; i < x->getListadoTodasPeliculasEmpresa().size(); i++) {
+       if (x->getListadoTodasPeliculasEmpresa()[i].getNombre_pelicula() == nombre) return x->getListadoTodasPeliculasEmpresa()[i];
+    }
+    return Pelicula();
+}
 //nueva
 
-//void DevolverPelicula(EmpresaX x) {
-    //string nombre_pelicula;
-    //int ranking_nuevo;
+void DevolverPelicula(EmpresaX *x) {
+    string nombre_pelicula;
+    int ranking_nuevo;
 
-    //cout << "Ingrese el nombre o ID de la película a devolver: ";
-    //cin >> nombre_pelicula;
+    cout << "Ingrese el nombre o ID de la película a devolver: ";
+    cin >> nombre_pelicula;
 
-    // Buscar la película en el listado
-    //Pelicula pelicula = BuscarPelicula(x,nombre_pelicula);
-    //Pelicula pelicula("a","a",2,2);
+    //Buscar la película en el listado
+    Pelicula pelicula = BuscarPelicula(x,nombre_pelicula);
+//    Pelicula pelicula("a","a",2,2);
 
-    //if (pelicula.getNombre_pelicula().empty()) {
-        //cout << "La película no existe o no se ha solicitado un alquiler." << endl;
-        //return;
-    //}
-    /*
-  for(int i=0; i<x.getListadoTodasPeliculasEmpresa().size(); i++){
-        if(x.getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula().empty()){
+    if (pelicula.getNombre_pelicula().empty()) {
+        cout << "La película no existe o no se ha solicitado un alquiler." << endl;
+        return;
+    }
+  for(int i=0; i<x->getListadoTodasPeliculasEmpresa().size(); i++){
+        if(x->getListadoTodasPeliculasEmpresa().at(i).getNombre_pelicula().empty()){
             cout << "La película no existe o no se ha solicitado un alquiler." << endl;
             return;
         }
     }
-    */
-    //do{
-    //cout << "Ingrese el ranking nuevo de la película: ";
-    //cin.ignore();
-    //cin >> ranking_nuevo;
-    //}while(ranking_nuevo<1 || ranking_nuevo>5);
+    do{
+    cout << "Ingrese el ranking nuevo de la película: ";
+    cin.ignore();
+    cin >> ranking_nuevo;
+    }while(ranking_nuevo<1 || ranking_nuevo>5);
 
 
-    /*
-     * validacion no optimizada
+//     validacion no optimizada
     if(ranking_nuevo < 0 or ranking_nuevo > 5) {
         cout << "Ranking dado no se encuentra entre 1 y 5. "<<endl;
         cout << "Ingrese el ranking nuevo de la película: ";
         cin.ignore();
         cin >> ranking_nuevo;
     }
-     */
+//     Actualizar el ranking de la película
+    for(int i=0; i<x->getListadoTodasPeliculasEmpresa().size(); i++){
+        if(x->getListadoTodasPeliculasEmpresa().at(i).getRanking()){
+            cout << "La película no existe o no se ha solicitado un alquiler." << endl;
+            return;
+        }
+    }
+    pelicula.setRanking(ranking_nuevo);
 
-    // Actualizar el ranking de la película
-    //for(int i=0; i<x.getListadoTodasPeliculasEmpresa().size(); i++){
-        //if(x.getListadoTodasPeliculasEmpresa().at(i).getRanking()){
-            //cout << "La película no existe o no se ha solicitado un alquiler." << endl;
-            //return;
-        //}
-    //}
-    //pelicula.setRanking(ranking_nuevo);
+    char respuesta;
+    cout << "¿Está de acuerdo con la devolución de la película? (S/N): ";
+    cin >> respuesta;
 
-    //char respuesta;
-    //cout << "¿Está de acuerdo con la devolución de la película? (S/N): ";
-    //cin >> respuesta;
+    if (respuesta == 'S' || respuesta == 's') {
+//         Aumentar la cantidad disponible de la película en 1
+        pelicula.aumentoEjemplares();
+        cout << "Devolución exitosa." << endl;
+    } else {
+        cout << "No se realizó la devolución." << endl;
+    }
+}
 
-    //if (respuesta == 'S' || respuesta == 's') {
-        // Aumentar la cantidad disponible de la película en 1
-        //pelicula.aumentoEjemplares();
-        //cout << "Devolución exitosa." << endl;
-    //} else {
-      //  cout << "No se realizó la devolución." << endl;
-    //}
-//}
-/*
 
 
 
