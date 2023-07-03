@@ -9,12 +9,12 @@
 #include "utils/menu.h"
 
 
+/*
 Usuario registrarUsuario()
 {
     string dni;
     string nombre_usuario;
     string apellido_usuario;
-
     cout << "-----REGISTRAR USUARIO-----" << endl;
     cout << "DNI: ";
     cin >> dni;
@@ -28,6 +28,8 @@ Usuario registrarUsuario()
     return Usuario(dni, nombre_usuario, apellido_usuario);
 }
 
+ */
+/*
 Pelicula RegistrarPelicula(EmpresaX *empresa)
 {
     string nombre_pelicula;
@@ -70,13 +72,14 @@ Pelicula RegistrarPelicula(EmpresaX *empresa)
     empresa->lista_todas_peliculas_empresa.push_back(pelicula);
     return pelicula;
 }
-
+*/
 int main()
 {
     srand((unsigned int)time (NULL));
     EmpresaX empresa1 = registrar_empresa();
 
     clear();
+
 
     vector<int> listaids;
     vector<int> listausuarios;
@@ -86,7 +89,7 @@ int main()
     int nro_peliculas_registradas;
     int opcion;
 
-    leerPelis("peliculas.txt", empresa1);
+    leerPelis("./peliculas.txt", empresa1);
 
     do
     {
@@ -124,8 +127,7 @@ int main()
                 empresa1.registrarUsuario_Empresa(usuario);
                 cout << "Imprimiendo usuario registrado : " << endl;
                 empresa1.imprimirListadoUsuario_Empresa();
-                cout << "LONGITUD VECTOR USUARIO: " << empresa1.getListadoUsuarios().size();
-                empresa1.imprimirVectorUsuarios();
+               // empresa1.imprimirVectorUsuarios();
                 break;
 
             case 3:

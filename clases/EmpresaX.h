@@ -76,14 +76,6 @@ public:
         }
     }
 
-    // funcion de prueba
-    void imprimirVectorUsuarios() {
-        cout << "LISTA USUARIOS: " << endl;
-        for (int i = 0; i < listado_usuarios.size(); i++ ) {
-            cout << endl;
-            cout << listado_usuarios[i].getNombre() << " "<< listado_usuarios[i].getDNI() << endl;
-        }
-    }
 
     // agregado
     Pelicula BuscarPelicula(const string nombre) {

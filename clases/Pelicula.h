@@ -23,6 +23,14 @@ public:
     // Constructor vacio
     Pelicula();
 
+    Pelicula(string _nombre_pelicula, string _anio_publicacion, int _ejemplares_disponibles, int _ranking, int _id){
+        this -> nombre_pelicula = _nombre_pelicula;
+        this -> anio_publicacion= _anio_publicacion;
+        this -> ejemplares_disponibles = _ejemplares_disponibles;
+        this -> ranking = _ranking;
+        this -> ID = _id;
+    }
+
     //Cuando el usuario no coloca el ranking, por defecto ranking=5
     Pelicula(string nombre_pelicula, string anio_publicacion, int ejemplares_disponibles){
         this -> nombre_pelicula = nombre_pelicula;

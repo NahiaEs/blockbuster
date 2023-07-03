@@ -22,6 +22,18 @@ private:
 
 public:
     //sobrecarga de constructores
+    double devolucionPelicula(int _id) {
+        double monto_pago=0;
+        for (int i = 0; i < listado_peliculas.size(); i++) {
+            if (listado_peliculas[i].getId() == _id) {
+                monto_pago += pagos[i];
+                // cout prueba
+                listado_peliculas.erase(listado_peliculas.begin() + i);
+                pagos.erase(pagos.begin() + i);
+            }
+        }
+        return monto_pago;
+    }
     Usuario(){};
     Usuario(string dni, string nombre_usuario, string apellido_usuario){
         this -> dni = dni;
@@ -80,7 +92,6 @@ public:
     }
     void agregarPago(double cantidad) {
         pagos.push_back(cantidad);
-        cout<<"Esta funcion se esta ejecutando"<<endl;
     }
 
     void imprimirPagos() {
@@ -106,10 +117,6 @@ public:
         }
         return false;
     }
-
-
-
-
 };
 
 
