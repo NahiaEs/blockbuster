@@ -74,16 +74,13 @@ public:
     // Elimina la película de su lista y retorna el valor que pagó (para poder añadirlo a ganancias por películas devueltas)
     double devolucionPelicula(string nombre) {
         double monto_pago=0;
-        cout<< listado_peliculas.size();
 
         for (int i = 0; i < listado_peliculas.size(); i++) {
-            cout << listado_peliculas[i].getNombre_pelicula() << " Y " << nombre << endl;
             if (listado_peliculas[i].getNombre_pelicula() == nombre) {
                 monto_pago += pagos[i];
                 // cout prueba
                 listado_peliculas.erase(listado_peliculas.begin() + i);
                 pagos.erase(pagos.begin() + i);
-                cout << listado_peliculas.size() << " " << pagos.size() << endl;
             }
         }
 
